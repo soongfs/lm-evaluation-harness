@@ -1,0 +1,28 @@
+task: kqa_pro_qa
+dataset_path: json
+dataset_name: null
+dataset_kwargs:
+  data_files:
+    train: dataset/train.json
+    validation: dataset/val.json
+
+training_split: train
+validation_split: validation
+fewshot_split: train
+
+output_type: generate_until
+doc_to_text: "Question: {{question}}\nAnswer:"
+doc_to_target: "{{answer}}"
+
+metric_list:
+  - metric: exact_match
+  - metric: !function utils.token_f1
+    aggregation: mean
+    higher_is_better: true
+  - metric: !function utils.fuzzy_acc
+    aggregation: mean
+    higher_is_better: true
+    threshold: 0.5
+
+metadata:
+  version: 1.0
