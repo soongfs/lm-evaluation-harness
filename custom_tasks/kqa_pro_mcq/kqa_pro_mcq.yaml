@@ -1,4 +1,4 @@
-task: kqa_pro
+task: kqa_pro_mcq
 dataset_path: json
 dataset_name: null
 dataset_kwargs:
