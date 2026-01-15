@@ -15,7 +15,9 @@ doc_to_text: "Question: {{question}}\nAnswer (only the answer text, no explanati
 doc_to_target: "{{answer}}"
 
 metric_list:
-  - metric: exact_match
+  - metric: !function utils.exact_match_first_segment
+    aggregation: mean
+    higher_is_better: true
   - metric: !function utils.token_f1
     aggregation: mean
     higher_is_better: true
@@ -25,4 +27,4 @@ metric_list:
     threshold: 0.5
 
 metadata:
-  version: 1.1
+  version: 1.2

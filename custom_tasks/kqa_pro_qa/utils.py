@@ -23,6 +23,15 @@ def _get_text(value):
     return value
 
 
+def _first_segment(text: str) -> str:
+    text = text.strip()
+    if not text:
+        return ""
+    text = text.split("\n\n", 1)[0]
+    text = text.split("\n", 1)[0]
+    return text.strip()
+
+
 def _token_f1_score(pred: str, gold: str) -> float:
     pred_tokens = _tokenize(pred)
     gold_tokens = _tokenize(gold)
@@ -44,13 +53,13 @@ def _token_f1_score(pred: str, gold: str) -> float:
 
 def token_f1(references, predictions) -> float:
     gold = _get_text(references)
-    pred = _get_text(predictions)
+    pred = _first_segment(_get_text(predictions))
     return _token_f1_score(pred, gold)
 
 
 def fuzzy_acc(references, predictions, threshold: float = 0.5) -> float:
     gold = _get_text(references)
-    pred = _get_text(predictions)
+    pred = _first_segment(_get_text(predictions))
 
     gold_norm = _normalize(gold)
     pred_norm = _normalize(pred)
@@ -58,3 +67,9 @@ def fuzzy_acc(references, predictions, threshold: float = 0.5) -> float:
         return 1.0
 
     return 1.0 if _token_f1_score(pred, gold) >= threshold else 0.0
+
+
+def exact_match_first_segment(references, predictions) -> float:
+    gold = _get_text(references).strip()
+    pred = _first_segment(_get_text(predictions))
+    return 1.0 if pred == gold else 0.0
