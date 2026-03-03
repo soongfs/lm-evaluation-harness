@@ -5,7 +5,7 @@
 目录结构：
 
 - `kqa_pro_mcq/`：基础版多项选择任务
-- `kqa_pro_mcq_instruct/`：面向 instruct 模型的生成式多项选择任务
+- `kqa_pro_mcq_instruct/`：面向 instruct 模型的 continuation 风格多项选择任务
 - `kqa_pro_qa/`：面向基础模型的自由生成式 QA 任务
 - `kqa_pro_qa_instruct/`：面向 instruct 模型的自由生成式 QA 任务
 
@@ -20,7 +20,7 @@
 其中 MCQ 任务分成两条与 MMLU 风格对应的评测线：
 
 - `kqa_pro_mcq`：continuation 风格的多项选择评测，比较 `A-J` 选项标签
-- `kqa_pro_mcq_instruct`：instruct/generative 风格的多项选择评测，并使用严格答案抽取
+- `kqa_pro_mcq_instruct`：参考 Llama 3 instruct MMLU continuation 模板的多项选择评测，生成短答案并直接做 `exact_match`
 
 QA 任务目前分成两条与 `nq_open` 风格接近的评测线：
 

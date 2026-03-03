@@ -48,7 +48,7 @@ def process_docs(dataset):
             "choices": choices,
             "options_block": "\n".join(option_lines),
             "gold_letter": gold_letter,
-            "answer_sentence": f"The best answer is {gold_letter}.",
+            "gold_letter_with_period": f"{gold_letter}.",
         }
 
     return dataset.map(_process)
