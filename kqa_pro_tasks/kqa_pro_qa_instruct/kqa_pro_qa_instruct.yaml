@@ -1,4 +1,4 @@
-task: kqa_pro_qa
+task: kqa_pro_qa_instruct
 custom_dataset: !function utils.load_local_dataset
 training_split: train
 validation_split: validation
@@ -33,4 +33,4 @@ metric_list:
     ignore_punctuation: true
 
 metadata:
-  version: 0.2
+  version: 0.1
