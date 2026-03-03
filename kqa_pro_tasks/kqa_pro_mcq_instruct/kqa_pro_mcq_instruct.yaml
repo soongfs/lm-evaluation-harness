@@ -6,10 +6,11 @@ fewshot_split: train
 
 output_type: generate_until
 process_docs: !function utils.process_docs
-doc_to_text: "Given the following question and ten candidate answers (A-J), choose the best answer.\n\nQuestion: {{question}}\n{{options_block}}\n\nFor simple problems, directly provide the answer with minimal explanation.\nFor complex problems, briefly reason step by step.\nRegardless of the approach, always conclude with:\nThe best answer is (X)\nwhere X is one of A, B, C, D, E, F, G, H, I, or J."
+doc_to_text: "Given the following question and ten candidate answers (A-J), choose the best answer.\n\nQuestion: {{question}}\n{{options_block}}\n\nFor simple problems, directly provide the answer with minimal explanation.\nFor complex problems, briefly reason step by step.\nRegardless of the approach, always conclude with:\nThe best answer is X.\nwhere X is one of A, B, C, D, E, F, G, H, I, or J."
 doc_to_target: gold_letter
 
 fewshot_config:
+  sampler: first_n
   doc_to_target: answer_sentence
 
 generation_kwargs:
@@ -21,11 +22,9 @@ generation_kwargs:
 filter_list:
   - name: extract_letter
     filter:
-      - function: multi_choice_regex
-        regex_pattern: "(?i)best answer is\\s*\\(?([A-J])\\)?"
-        group_select: 0
-        ignore_case: true
-        ignore_punctuation: true
+      - function: regex
+        regex_pattern: "(?i)best answer is\\s*([A-J])"
+        group_select: -1
       - function: take_first
 
 metric_list:
@@ -36,4 +35,4 @@ metric_list:
     ignore_punctuation: true
 
 metadata:
-  version: 0.1
+  version: 0.2

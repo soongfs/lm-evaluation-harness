@@ -38,7 +38,7 @@ def process_docs(dataset):
             )
 
         option_lines = [
-            f"({LETTERS[idx]}) {choice}" for idx, choice in enumerate(choices)
+            f"{LETTERS[idx]}. {choice}" for idx, choice in enumerate(choices)
         ]
         gold_index = choices.index(answer) if answer in choices else -1
         gold_letter = LETTERS[gold_index] if gold_index >= 0 else "[invalid]"
@@ -48,7 +48,7 @@ def process_docs(dataset):
             "choices": choices,
             "options_block": "\n".join(option_lines),
             "gold_letter": gold_letter,
-            "answer_sentence": f"The best answer is ({gold_letter}).",
+            "answer_sentence": f"The best answer is {gold_letter}.",
         }
 
     return dataset.map(_process)

@@ -8,6 +8,7 @@ DEFAULT_DATA_FILES = {
     "train": "dataset/train.json",
     "validation": "dataset/val.json",
 }
+LETTERS = "ABCDEFGHIJ"
 
 
 def _resolve_data_files(data_files):
@@ -30,11 +31,23 @@ def process_docs(dataset):
     def _process(doc):
         choices = doc["choices"]
         answer = doc.get("answer", "")
-        label = choices.index(answer) if answer in choices else -1
+
+        if len(choices) > len(LETTERS):
+            raise ValueError(
+                f"Expected at most {len(LETTERS)} choices, got {len(choices)}"
+            )
+
+        option_lines = [
+            f"{LETTERS[idx]}. {choice}" for idx, choice in enumerate(choices)
+        ]
+        gold_index = choices.index(answer) if answer in choices else -1
+        gold_letter = LETTERS[gold_index] if gold_index >= 0 else "[invalid]"
+
         return {
             "question": doc["question"],
             "choices": choices,
-            "label": label,
+            "options_block": "\n".join(option_lines),
+            "gold_letter": gold_letter,
         }
 
     return dataset.map(_process)
