@@ -28,5 +28,5 @@ QA 任务目前分成两条与 `nq_open` 风格接近的评测线：
 
 - `kqa_pro_qa`：基础模型用的开放式 QA，直接生成短答案并用内置 `exact_match` 评测
 - `kqa_pro_qa_instruct`：instruct 模型用的开放式 QA，同样直接生成短答案并用内置 `exact_match` 评测
-- `kqa_pro_qa_contains`：基础模型用的宽松 QA 评测，允许较长输出，只要归一化后的答案文本在回复中出现即记为命中
-- `kqa_pro_qa_contains_instruct`：instruct 模型用的宽松 QA 评测，目前与 base 版共享同一套 contains 逻辑，后续可单独迭代 prompt
+- `kqa_pro_qa_contains`：基础模型用的宽松 QA 评测，采用 CoT 风格输出，只要归一化后的答案文本在回复中出现即记为命中
+- `kqa_pro_qa_contains_instruct`：instruct 模型用的宽松 QA 评测，采用 CoT 风格输出，后续可继续单独迭代 prompt

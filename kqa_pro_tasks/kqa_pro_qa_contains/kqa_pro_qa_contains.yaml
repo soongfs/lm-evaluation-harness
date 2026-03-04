@@ -7,19 +7,18 @@ fewshot_config:
   sampler: first_n
 
 output_type: generate_until
-doc_to_text: "Question: {{question}}\nPlease answer the question. You may explain briefly, but make sure the answer text is explicitly included in your response.\nAnswer:"
+doc_to_text: "Question: {{question}}\nThink step by step and explain your reasoning briefly. Make sure the final answer text is explicitly included in your response.\nAnswer:"
 doc_to_target: "{{answer}}"
 
 generation_kwargs:
   until:
-    - "\n\n"
     - "\nQuestion:"
     - "</s>"
     - "<|im_end|>"
     - "<|eot_id|>"
   do_sample: false
   temperature: 0.0
-  max_gen_toks: 128
+  max_gen_toks: 256
 
 filter_list:
   - name: remove_whitespace
@@ -33,4 +32,4 @@ metric_list:
     higher_is_better: true
 
 metadata:
-  version: 0.1
+  version: 0.2
